@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  app:
+    image: node:18.13.0-bullseye
+    command: npm run start
+    container_name: flowd-client
+    ports:
+      - 3000:3000
+    networks:
+      flowd:
+        aliases:
+          - client
+    working_dir: /app
+    volumes:
+      - ./:/app
+
+networks:
+  flowd:
+    external: true
