@@ -1,6 +1,6 @@
-import { AiOutlineLoading } from 'react-icons/ai';
+import Spinner from './Spinner';
 
-interface IButton {
+interface IButtonProps {
   label?: string;
   icon?: React.ReactNode;
   type?: 'button' | 'submit';
@@ -22,7 +22,7 @@ const Button = ({
   text = false,
   danger = false,
   size = 'none',
-}: IButton) => {
+}: IButtonProps) => {
   let bgClass = ''
   let hoverBgClass = ''
   let textClass = ''
@@ -60,7 +60,7 @@ const Button = ({
         }
       }}
     >
-      { loading && <AiOutlineLoading className='animate-spin' /> }
+      { loading && <Spinner /> }
       { icon }
       { label }
     </button>

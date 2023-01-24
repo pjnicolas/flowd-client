@@ -40,7 +40,7 @@ export const useTaskList = () => {
   const [list, setList] = useState<ITask[] | null>(null)
 
   const reload = (wipeOldList: boolean = true) => {
-    if (!wipeOldList) {
+    if (wipeOldList) {
       setList(null);
     }
     return getTaskList()

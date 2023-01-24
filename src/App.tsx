@@ -8,14 +8,15 @@ import { YupRequiredString } from './components/lib/yup'
 import { toastError, toastSuccess } from './components/lib/toast'
 import Card from './components/Card'
 import './App.css'
+import Spinner from './components/Spinner'
 
 const App = () => {
   const [tasks,, reloadTasks] = useTaskList()
   const [name, setName] = useState<string | null>(null)
+  const [creatingTask, setCreatingTask] = useState<boolean>(false)
 
   if (!tasks) {
-    // TODO: spinner
-    return <div>Loading...</div>
+    return <Spinner page />
   }
 
   return (
@@ -59,6 +60,7 @@ const App = () => {
       <Card>
         <Form
           onSubmit={() => {
+            setCreatingTask(true)
             createTask({
               name: name as string,
             }).then(() => {
@@ -68,6 +70,8 @@ const App = () => {
             }).catch((error) => {
               console.error(error)
               toastError('Error creating task')
+            }).finally(() => {
+              setCreatingTask(false)
             })
           }}
         >
@@ -86,7 +90,7 @@ const App = () => {
             label='Create task'
             type='submit'
             disabled={false}
-            loading={false}
+            loading={creatingTask}
           />
         </Form>
 
